@@ -1,0 +1,16 @@
+    # Ansible managed: 
+      /etc/ansible/roles/openstack_openrc/templates/clouds.yaml.j2 modified 
+       on 2016-06-16 14:00:03 by root on 082108-allinone02
+    clouds:
+     default:
+      auth:
+       auth_url: http://172.29.238.2:5000/v3
+       project_name: admin
+       tenant_name: admin
+       username: admin   
+       password: passwd
+       user_domain_name: Default
+       project_domain_name: Default
+      region_name: RegionOne
+      interface: internal
+      identity_api_version: "3"

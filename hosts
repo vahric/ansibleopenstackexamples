@@ -1,6 +1,15 @@
+# Inventory dosyası gördüğünüz gibi aslında bir ini file
+# Köşeli parantezler içinde node'lar/host'lar guruplanıyor
 [webservers]
 213.155.119.7
+# veya server.domain.com olarak'da set edilebilir
 
+# Inventory dosyasında guruba girilen ortak değişkenler
+# Mesela burada key file olarak kullanılacak dosya ve ssh yaparken hani bu yeni host known_hosts
+# lara ekleyeyim mi diye çıkan mesaj çıkmasında diye , bu kontrolü yaptırmıyoruz.
 [webservers:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ansible_ssh_private_key_file=key1.txt
+
+
+# no bu dosyayı inventory file olarka çağıtmak için "-i dosya_adi" parametresini ansible-playbook'a eklemelisiniz

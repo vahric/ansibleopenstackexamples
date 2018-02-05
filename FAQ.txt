@@ -12,3 +12,54 @@ Lookup modülü dış kaynaklardan veri erişimi için kullanılır. Bu dış ka
 
 3) ansible playbook'larını çalıştırdıktan sonra aynı dosya adında .retry diye bir dosya oluşuyor, bu nedir ?
 
+Ansible playbook çalıştırıldığında bir hata ile karşılaşıldığında türetilen dosya
+
+4) Dosya başında --- ve sonundaki ...
+
+Format olarak --- yml dosyasının başını , ... ise sonunu belirtir.
+
+5) Değişken
+
+Ansible playbook larında {{ değişken_adı }} şeklinde placeholder'lar göreceksiniz
+İlgili playbook'u çalıştırdığınızda --extra-vars "değişken_adı=değer" şeklinde set edebilirsiniz.
+
+veya 
+
+YML dosyasına vars: altında değişkenleri set edip, playbook içinde kullanabilirsiniz
+
+- name: test
+  hosts: localhost
+  vars:
+  	- deger1 = "deger"
+  	- port : 80 
+  	- cnf = /cnf 
+
+veya her bir role için ilgili role dizini altında, vars altında mail.yml dosyasına yazabilirsiniz
+
+---
+deger1 = "deger"
+
+6) Task Cıkıtısını yakalamak veya bir şey değişkene atamak
+
+register: atanan_degisken
+
+7) Role Nedir ? 
+
+Role aslında bir büyük makarna playbook'u yazmaktansa , kodcuların yaptığı gibi daha çok fonksiyon kullanma , bunların tekrardan kullanılabilirliğini artırmayı amaçlar. 
+
+Role ler genelde roles/ adlı bir dizinde ilgili işi yapacak başka biz dizinde örneğin örneğin "mysql" dizini , bunun içinde tasks, templates , vars içeren bir dizin yapısıdır ve her bir dizin içersinde main.yml olmalıdır.
+
+8) Dönügü
+
+Mesela birden fazla paketi kurmak istiyorsunuz with_items içersinde - ile satır satır gereksinimleri yazıp onu yukarıda ilgili module'ün ilgili yerinde {{item}} çağırmak.
+
+9) Modüller hakkında bilgi almak için
+
+ansible-doc os_server
+
+10) Ansible Modüller , kendi modülünü geliştirme ve geliştirme dili
+
+Ansible modülleri python ile yazılmışıtr ve ansible kendi modülünüzü kendi istediğiniz dilde fakat json çıktısı verecek şekilde ayarlamanıza izin verir
+
+11) 
+

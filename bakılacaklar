@@ -1,0 +1,1 @@
+1) Dynamic Inventory Openstack - ./dynamic_inventory.py -i inventory/dynamic_inventory.py
