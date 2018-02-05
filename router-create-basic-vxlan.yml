@@ -1,0 +1,14 @@
+- name: Openstack Router Yaratma
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Router Yaratılıyor
+      os_router:
+        name: bizim_router
+        state: present
+        network: 89df3d19-eafc-474b-91d8-06b3de2b5075
+        external_fixed_ips:
+          - subnet: 654f3f61-9ebf-4f5d-b3b5-3464705a4f48
+        interfaces:
+          - aren_network_subnet1 

@@ -1,0 +1,14 @@
+
+1) Local Environment Variablelarına Nasıl Erişilir ? 
+
+Diyelim export edilmiş "OS_PROJECT_NAME" değişkenine erişmek istiyorsunuz bunu için aşağıdaki lookup moduülünü kullanmalısınız.
+
+{{ lookup('env', 'OS_PROJECT_NAME') }}
+
+2) Lookup Modülü ne İşe Yarar ? 
+
+Lookup modülü dış kaynaklardan veri erişimi için kullanılır. Bu dış kaynak bir url olabilir veya bir dosyadosya
+Örneğin lookup('url', 'www.doruk.net.tr') veya lookup('file', 'a.txt')
+
+3) ansible playbook'larını çalıştırdıktan sonra aynı dosya adında .retry diye bir dosya oluşuyor, bu nedir ?
+

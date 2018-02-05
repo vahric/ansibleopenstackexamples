@@ -1,0 +1,14 @@
+- name: Openstack Subnet Yaratma
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Subnet Yaratılıyor
+      os_subnet:
+        name: aren_network_subnet1
+        state: present
+        dns_nameservers:
+          - 8.8.8.8
+          - 8.8.4.4
+        network_name: aren-network
+        cidr: 10.0.0.0/24

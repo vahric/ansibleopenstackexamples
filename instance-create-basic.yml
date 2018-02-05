@@ -1,0 +1,80 @@
+---
+# YAML dosyası baslar
+# Yazan : Vahric MUHTARYAN , @vahric_M
+
+# Playbook : Ansible ile Openstack Üzierinde Instance Yaratma
+
+# Gereksinimler 
+# MacOS Kullanıcıları İçin 
+# Openstack Client : "sudo pip2 install python-openstackclient"
+# Eğer fail eder is yukardaki komut "--ignore-installed" parametresini ekleyerek çalıştırın.
+# pip2 --> python 2.x pip3 --> python 3.x 
+# 
+# Shade Paketi kurulu olmalı: sudo pip2 install shade
+
+# Ansible-playbook ile yml dosyasını çalıştırdığınızda bu şekilde çıkıcak karşınıza
+# PLAY [Openstack üzerinde instance yaratan playbook] *****************************
+- name: Openstack üzerinde instance yaratan playbook
+  # Playbook localhost üzerinde çalışacak, 127.0.0.1
+  hosts: localhost
+  gather_facts: false
+  # playbook çalıştğında üzerindeki veya bağlandığı node,server,vm in durum bilgisini alacaktır öncesinde
+  # Örneğin IP adresi , cpu , disk , ram gibi ...
+  # Bununla zaman kaybetmemek için false set ediyoruz.
+  tasks:
+    # Yapacağımız şeyleri adım adım, sıra ile belirtiyoruz
+    # Task 1  - "Openstack üzerinde instance yaratma"
+    #.Ansible-playbook ile yml dosyasını çalıştırdığınızda bu şekilde çıkıcak karşınıza 
+    # TASK [Openstack üzerinde instance yaratma] **************************************
+    - name: Openstack üzerinde instance yaratma
+      # Cloud Module --> os_server
+      # os_server shade adlı bir kütüphane kullanıtor ve Openstack için sadece
+      # openrc dosyanızı çalıştırarak OS_* variable'larını yüklemeniz yeterli
+      # eğer yine auth siz belirtmek istiyorsanız auth: altında bunları set edebilirsiniz
+      # Ortam değişkenlerini yüklemek için Horizon --> PROJECT --> COMPUTE --> Access § Security --> API Access
+      # DOWNLOAD OPENSTACK RC FILE V3 düğmesine basip makineninize indirin
+      # "source admin-openrc.sh" çalıştırın ve şifrenizi girin
+      # Ortam değişkenleri yüklenmiş mi kontrol edin, "export | grep OS_"
+      os_server:
+        # state present derken yaratacağımız instance olmalı demek istiyoruz,
+        # eğer yok ise ansible bunu yaratacak.
+        state: present
+        # Instance'ımızın openstack'de Horizon Panelde görünecek ismi. 
+        # (Zorunlu Alan)
+        name: Sunucu1
+        # Imajımızın adı bunu "openstack image list" diyerek veya
+        # Horizon --> PROJECT --> COMPUTE --> Instances
+        # (Zorunlu Alan)
+        image: Ubuntu 16.04 Xenial Xerus
+        # Openstack Instance'a şifresiz girebilmek için key belirtilmeli
+
+        # Horizon --> PROJECT --> COMPUTE --> Access § Security --> Key Pairs
+        # (Opsiyonel Alan) 
+        key_name: Key1
+        # İki vcpu dört gb ram ve 40 gb diskli bir instance'ımız olsun diye ilgili flavor'ı seçtim
+        flavor: G-medium2440
+        # Direkt default'a SSG adlı SG ekleyelim, daha fazlası için virgülle devam
+        security_groups: SSH
+        # 
+        auto_floating_ip: yes  
+        # Openstack Instance'ı bağlayacağınız network'ü seçin
+        # Horizon --> PROJECT --> COMPUTE --> NETWORK --> Networks
+        network: 0e4b37f3-f873-403c-94e6-834517d920ee
+        #
+        userdata: |
+          #cloud-config
+          packages:
+            - ansible
+
+        # Bazı özel değerler göndermek için
+        meta:
+          hostname: sunucu1.dorukcloud.com
+
+
+
+
+
+# Openstack Instance Create : http://docs.ansible.com/ansible/latest/os_server_module.html
+
+# YAML dosyası biter
+...

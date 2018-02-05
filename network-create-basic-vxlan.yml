@@ -1,0 +1,10 @@
+- name: Openstack Network Yaratma - VXLAN
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+    - name: Sanal Network Yaratılıyor
+      os_network:
+        state: present
+        #name: "{{ lookup('env', 'OS_PROJECT_NAME') }}"
+        name: aren-network
